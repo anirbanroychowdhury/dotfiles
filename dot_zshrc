@@ -3,7 +3,7 @@
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-  source /opt/homebrew/Cellar/zsh-autocomplete/25.03.19/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+  # source /opt/homebrew/Cellar/zsh-autocomplete/25.03.19/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -114,12 +114,38 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Setup personal alias
-alias pp="cd ~/Desktop/1.Projects/"
+# Switch git branches interactively
+alias gcb='git checkout $(git branch | fzf)'
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ~='cd ~'
+alias -- -='cd -'          # go back to previous directory
+# Reload shell config after editing
+alias reload='source ~/.zshrc'
+# Docker shortcuts
+alias dps='docker ps'
+alias dc='docker-compose'
+alias dcu='docker-compose up -d'
+alias dcd='docker-compose down'
+# terraform
+alias pp="cd ~/1.Projects/"
 alias pc="pre-commit run --all-files"
 alias tfp="terraform plan"
 alias tfa="terraform apply"
 alias tfv="terraform validate"
 alias tfi="terraform init"
+# pre commit
+alias pc="pre-commit run --all-files"
+# agents
+alias cld="claude --dangerously-skip-permissions"
+alias cod="codex -a never -s danger-full-access"
+# homebrew
+alias drink="brew update && brew upgrade && brew cleanup"
+# tmux
+alias tmkms="tmux kill-session -t"
+alias tmls="tmux ls"
+alias tm="tmux new-session -s"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -136,3 +162,13 @@ export HERD_PHP_83_INI_SCAN_DIR="/Users/anirbanroychowdhury/Library/Application 
 export PATH="/Users/anirbanroychowdhury/Library/Application Support/Herd/bin/":$PATH
 
 . "$HOME/.local/bin/env"
+
+# Increase history size
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoredups:erasedups
+
+# Function to change directory and list contents
+function cl() {
+  cd "$1" && ls -la
+}
